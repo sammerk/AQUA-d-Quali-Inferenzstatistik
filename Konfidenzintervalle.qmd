@@ -1,0 +1,16 @@
+# Konfidenzintervalle {#sec-Konfidenzintervalle}
+
+## Interpretation nach @EffectSizeGuide
+
+> »What is the correct interpretation of a confidence interval? Imagine you conducted a study where you compared two groups. You obtained a Cohen’s  = 0.3, 95% CI [0.2, 0.4]. How do you interpret this confidence interval?
+Confidence intervals are yielded by a certain procedure, such that when the procedure is repeatedly applied to a series of hypothetical datasets drawn from the studied population/populations, it yields intervals that contain the true parameter value (in our example, it means the true difference between the two groups) in 95% of the cases. For the effect estimate and confidence intervals to be valid, the data and test must meet the assumptions of the estimating procedure.
+In colloquial terms, if we conduct this research over and over (repeating the same sampling procedure, administering the same experimental manipulation, conducting the same statistical analysis, etc.), because of sampling variability (our samples are slightly different at each time), we will get different Cohen’s  values. For each of these  values, we calculate a 95% interval. Then, among all these many intervals, we expect that 95% of them will contain the true, which we never know exactly.«
+
+Diese Interpretation wird sehr gut durch [diese interaktive Visualisierung {{< fa square-up-right >}}](https://rpsychologist.com/d3/ci/) veranschaulicht.
+
+## Don'ts
+* p-Werte und Konfidenzintervalle drücken dieselbe Information in unterschiedlichen Metriken aus. Da p-Werte keine Evidenz für die Nullhypothese liefern können, können CI dies auch nicht.
+* Die Interpretation von CI »als das Intervall, das den wahren Wert mit 95%-Wahrscheinlichkeit enthält« ist falsch bzw. mindestens hochproblematisch.
+
+## Dos
+* Wer frequentistische Inferenzstatistik betreibt verliert nichts und gewinnt nur, wenn zusätzlich zum p-Wert Ci angegeben werden. Go for it 💨.

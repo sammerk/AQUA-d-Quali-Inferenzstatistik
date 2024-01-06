@@ -1,0 +1,19 @@
+# Übersicht {.unnumbered}
+
+## Herzlich Willkommen zur Sitzung »Inferenzstatistik« 👋!
+
+Heute wollen wir in die Welt der Inferenzstatistik eintauchen. Wie man in der Kapitelleiste links sehen kann werden dazu die folgenden Dinge behandeln bzw. üben:
+
+* Die Unterscheidung von Inferenz- und Deskriptivstatistik in alltäglicher und wissenschaftlicher Sprache [{{< fa square-up-right >}} ](Inferenz_versus_Deskriptivstatistik.qmd)
+* p-Werte [{{< fa square-up-right >}} ](p-Werte.qmd)
+    * Interpretation
+    * Do's and don'ts
+* Bayes Factors [{{< fa square-up-right >}} ](Bayes Factors.qmd)
+    * Interpretation
+    * Do's and don'ts    
+* Konfidenzintervalle [{{< fa square-up-right >}} ](Konfidenzintervalle.qmd)
+    * Interpretation
+    * Do's and don'ts 
+* Highest Density Posterior Intervals [{{< fa square-up-right >}} ](Highest Density Posterior Intervals.qmd)
+    * Interpretation
+    * Do's and don'ts 

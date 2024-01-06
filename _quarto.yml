@@ -1,0 +1,31 @@
+project:
+  type: book
+lang: de
+book:
+  search: false
+  title: 'AQUA-d-Quali: Inferenzstatistik'
+  author: Samuel Merk
+  date: last-modified
+  date-format: long
+  chapters:
+  - index.qmd
+  - Inferenz_versus_Deskriptivstatistik.qmd
+  - p-Werte.qmd
+  - Bayes Factors.qmd
+  - Konfidenzintervalle.qmd
+  - Highest Density Posterior Intervals.qmd
+  - Literatur.qmd
+  
+bibliography: references.bib
+csl: apa.csl
+
+format:
+  html:
+    theme: flatly
+    css: include/webex.css
+    include-after-body: include/webex.js
+
+
+
+filters: 
+  - shinylive

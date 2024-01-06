@@ -1,0 +1,112 @@
+# p-Werte {#sec-p-Werte}
+
+## Übung
+::: {.webex-check .webex-box}
+
+Welche der folgenden Aussagen zu p-Werten sind korrekt [siehe @goodman2008]?
+
+```{r, results='asis', echo = FALSE}
+cat("If *p* = .05, the null hypothesis has only a 5% chance of being true.", 
+    longmcq(c("true", answer = "false")))
+cat("A nonsignificant difference (eg, *p* >.05) means there is no difference between groups.", 
+    longmcq(c("true", answer = "false")))
+cat("A statistically significant finding is clinically important.", 
+    longmcq(c("true", answer = "false")))
+cat("Studies with *p*-values on opposite sides of .05 are conflicting.", 
+    longmcq(c("true", answer = "false")))
+cat("Studies with the same *p*-value provide the same evidence against the null hypothesis.", 
+    longmcq(c("true", answer = "false")))
+cat("*p* = .05 means that we have observed data that would occur only 5% of the time under the null hypothesis.", 
+    longmcq(c("true", answer = "false")))
+cat("*p* = .05 means that if you reject the null hypothesis, the probability of a type I error is only 5%.", 
+    longmcq(c("true", answer = "false")))
+cat("With a *p* = .05 threshold for significance, the chance of a type I error will be 5%.", 
+    longmcq(c("true", answer = "false")))
+```
+
+:::
+
+## Interpretation
+### Definition nach Kruschke [@kruschke2015]
+
+> Formally, a $p$ value can be defined as follows. For a set of actual data, let $T\left(D_{\text {actual }}\right)$ be a descriptive summary value of the data, such as a $t$ statistic. Suppose that the actual data were sampled according to certain stopping and testing intentions denoted $I$. Then the $p$ value is defined as
+$$
+p \text { value } \equiv p\left(T\left(D_{\text {simulated }}\right) \succeq T\left(D_{\text {actual }}\right) \mid \mu, I\right)
+$$
+where $T\left(D_{\text {simulated }}\right)$ are the descriptive summaries of simulated data sampled from a hypothetical population characterized by parameter value $\mu$ according to the same stopping and testing intentions, $I$, as the actual data. $\succeq$ means »is at least as extreme as, relative to the expected value of $T\left(D_{\text {simulated }}\right)$«. 
+
+### Visualisierung
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 845
+
+unif2norm <-
+  function (x, mu = 0, sd = 1) {
+    tol <- 1 / length(x)
+    min <- min(x, na.rm = TRUE) - tol
+    max <- max(x, na.rm = TRUE) + tol
+    p <- stats::punif(x, min, max)
+    stats::qnorm(p, mu, sd)
+  }
+
+ui <- fluidPage(
+  h5(""),
+  wellPanel(
+    sliderInput("n", "Gruppengröße", min = 0, max = 100, value = 20),
+    sliderInput("d", "Cohen's d", min = 0, max = 3, value = 0.4, step = 0.1)
+  ),
+  wellPanel(plotOutput("stripchart")),
+  wellPanel(verbatimTextOutput("pvaluetxt"))
+)
+
+
+# Server
+server <- function(input, output, session) {
+  
+      
+    df <- reactive({
+      data.frame(Gruppe1 = unif2norm(1:input$n), 
+                 Gruppe2 = unif2norm(1:input$n) + input$d)
+      })
+  
+  output$stripchart <- renderPlot({
+
+    df_long <- reshape(
+      data = df(),
+      varying = list(names(df())[1:2]),  # Columns to be melted
+      v.names = "Value",                      # Name of the variable column in the long format
+      timevar = "Variable",                   # Name of the column containing variable names
+      times = c("Gruppe 1", "Gruppe 2"),      # New variable names in long format
+      direction = "long"                      # Pivoting from wide to long
+    )
+    
+    stripchart(Value ~ Variable, data = df_long,
+               pch = 19, frame = FALSE, 
+               vertical = FALSE,
+               method = "jitter")
+  })
+  
+  output$pvaluetxt <- renderText({
+    t_test <- t.test(df()$Gruppe1, df()$Gruppe2)
+    paste("p-Wert eines zweiseitigen t-Tests:", round(t_test$p.value, digits = 3))
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
+
+```
+
+
+### Don'ts
+* Nicht-signifikante p-Werte liefern keine Evidenz für die Nullhypothese, denn nicht-signifikante p-Werte sind inkonklusiv.
+* p-Werte können nicht als graduelle Evidenz interpretiert werden
+    * Demnach gibt es kein »höchstsignifikant«, »marginally significant«, etc.
+* p-Werte sind nur interpretierbar, wenn die Testintention und Stopping Rule bekannt und konstant sind
+    * Also keinesfalls Daten erheben, sehen, dass der p-Wert knapp über dem $\alpha$-Niveau liegt und daher weitere Daten erheben
+* p-Wert, $\alpha$-Niveau, Effektstärke und Stichprobengröße sind deterministisch voneinander abhängig. Post hoc (also nach der Datenerhebung) anhand des vorgefundenen Effekts die Power zu berechnen ist also sinnfrei. Sie wird bei niedrigen p-Werten immer hoch und bei hohen p-Werten immer niedrig sein.
+
+### Dos
+* Keep in mind: Bei einfachen Testszenarien (z.B. t-Test) sind  die p-Werte uniform verteilt, angenommen $H_0$ ist wahr.
+* Vor der Datenerhebung festlegen, welche p-Werte berechnet werden und wie bei wechem Ergebnis weiterverfahren wird. <br> ![Hund](https://imgs.xkcd.com/comics/significant.png){} 
+* Planung

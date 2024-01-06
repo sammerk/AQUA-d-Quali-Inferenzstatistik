@@ -1,0 +1,123 @@
+# Bayes Factors {#sec-Bayes Factors}
+
+## Übung
+::: {.webex-check .webex-box}
+
+Welche der folgenden Aussagen zu Bayes Factoren sind korrekt [siehe @wong2022]?
+
+
+
+```{r, results='asis', echo = FALSE}
+cat("A group of researchers conducted an experiment in which three newly developed drugs for a deadly virus have been compared to a control group. The dependent variable is the recovery rate, the null hypothesis posits that the drug does not influence the recovery rate while the alternative hypothesis posits the drug does influence the recovery rate. After the experiment, two-sided Bayesian t-tests with a default prior were conducted. For drug A, it was found that BF10 is 2 while for drug B BF10 of 20 was found. For drug C, BF10 of 0.1 was found. <br> <br>")
+
+cat("*The probability of Drug A having an effect is one-tenth of that for drug B.*", 
+    longmcq(c("true", answer = "false")))
+cat("*For Drug B, the probability of obtaining the observed data is 20 times higher under the alternative than under the null.*", 
+    longmcq(c(answer = "true", "false")))
+cat("*The alternative hypothesis (drug B has an effect) is 20 times more probable than the null hypothesis (drug B has no effect).*", 
+    longmcq(c("true", answer = "false")))
+# 4
+cat("*Drug B demonstrated a positive effect on the recovery rate.*", 
+    longmcq(c("true", answer = "false")))
+cat("*There is evidence suggesting that drug A demonstrated an effect on the recovery rate relative to the null hypothesis (there is no effect).*", 
+    longmcq(c(answer = "true", "false")))
+cat("*For drug C, there is evidence in favor of the null hypothesis (there is no effect).*", 
+    longmcq(c(answer = "true", "false")))
+# 7
+cat("*For drug B, the Bayes factor disproved the null hypothesis (there is no effect).*", 
+    longmcq(c("true", answer = "false")))
+cat("*The effect of drug B is bigger than the effect of drug A.*", 
+    longmcq(c("true", answer = "false")))
+cat("*The strength of drug B affecting recovery rate cannot be known with the given information.*", 
+    longmcq(c( answer = "true","false")))
+# 10
+cat("*If the same group of researchers will conduct the same experiment repeatedly, they can be expected to find the presence of the effect from drug B in 20 out of 21 times.*", 
+    longmcq(c("true", answer = "false")))
+cat("*Based on the given Bayes Factor for drug A, drug A demonstrated no effect since the Bayes Factor is smaller than 3.*", 
+    longmcq(c("true", answer = "false")))
+```
+
+:::
+
+## Interpretation
+### Definition nach Kruschke [@kruschke2015]
+
+> Formally, a $p$ value can be defined as follows. For a set of actual data, let $T\left(D_{\text {actual }}\right)$ be a descriptive summary value of the data, such as a $t$ statistic. Suppose that the actual data were sampled according to certain stopping and testing intentions denoted $I$. Then the $p$ value is defined as
+$$
+p \text { value } \equiv p\left(T\left(D_{\text {simulated }}\right) \succeq T\left(D_{\text {actual }}\right) \mid \mu, I\right)
+$$
+where $T\left(D_{\text {simulated }}\right)$ are the descriptive summaries of simulated data sampled from a hypothetical population characterized by parameter value $\mu$ according to the same stopping and testing intentions, $I$, as the actual data. $\succeq$ means »is at least as extreme as, relative to the expected value of $T\left(D_{\text {simulated }}\right)$«. 
+
+### Visualisierung
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 845
+
+unif2norm <-
+  function (x, mu = 0, sd = 1) {
+    tol <- 1 / length(x)
+    min <- min(x, na.rm = TRUE) - tol
+    max <- max(x, na.rm = TRUE) + tol
+    p <- stats::punif(x, min, max)
+    stats::qnorm(p, mu, sd)
+  }
+
+ui <- fluidPage(
+  h5(""),
+  wellPanel(
+    sliderInput("n", "Gruppengröße", min = 0, max = 100, value = 20),
+    sliderInput("d", "Cohen's d", min = 0, max = 3, value = 0.4, step = 0.1)
+  ),
+  wellPanel(plotOutput("stripchart")),
+  wellPanel(verbatimTextOutput("pvaluetxt"))
+)
+
+
+# Server
+server <- function(input, output, session) {
+  
+      
+    df <- reactive({
+      data.frame(Gruppe1 = unif2norm(1:input$n), 
+                 Gruppe2 = unif2norm(1:input$n) + input$d)
+      })
+  
+  output$stripchart <- renderPlot({
+
+    df_long <- reshape(
+      data = df(),
+      varying = list(names(df())[1:2]),  # Columns to be melted
+      v.names = "Value",                      # Name of the variable column in the long format
+      timevar = "Variable",                   # Name of the column containing variable names
+      times = c("Gruppe 1", "Gruppe 2"),      # New variable names in long format
+      direction = "long"                      # Pivoting from wide to long
+    )
+    
+    stripchart(Value ~ Variable, data = df_long,
+               pch = 19, frame = FALSE, 
+               vertical = FALSE,
+               method = "jitter")
+  })
+  
+  output$pvaluetxt <- renderText({
+    t_test <- t.test(df()$Gruppe1, df()$Gruppe2)
+    paste("BF₁₀ eines zweiseitigen t-Tests:", round(1/(3*t_test$p.value*sqrt(input$n)), digits = 3))
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
+
+```
+
+
+### Don'ts
+* BF liefern keine relative Evidenz für Hypothesen, sondern für Daten
+* BF liefern keine Evidenz für Daten, sondern relative Evidenz
+* BF sind Prior-sensitiv. Diese müssen also berichtet werden
+
+### Dos
+* Optional Stopping ist kein Problem im bayesianischen Paradigma [@rouder2014]. Wer also keinen Plan von der zu erwartenden Effektstärke hat und demnach auch keine Poweranalyse machen kann, kann schlicht »ins Blaue« erheben, immer wieder BF berechnen und entscheiden ob weitererhoben wird.
+* BFs können aus p-Werten via der folgenden Daumenregeln [@wagenmakers2022] approximiert werden:
+$$\mathrm{approxBF}_{01} \approx \begin{cases}3 p \sqrt{n} & \text { if } p \leq .10 \\ \sqrt{p} \sqrt{n} & \text { if } .10<p \leq .50 \text { (leichter zu merken) } \\ \frac{4}{3} p^{2 / 3} \sqrt{n} & \text { if } .10<p \leq .50 \text { (präziser) } \\ p^{1 / 4} \sqrt{n} & \text { if } p>.50\end{cases}$$
+

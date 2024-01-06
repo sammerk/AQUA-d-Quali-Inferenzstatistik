@@ -1,0 +1,99 @@
+# Inferenz- versus Deskriptivstatistik {#sec-Inferenz_versus_Deskriptivstatistik}
+
+## Übung
+Im folgenden findet ihr leicht abgeänderte Pressemitteilungen und sollt entscheiden ob in dieser eine Inferenz- oder Deskriptivstatistik präsentiert wird.
+
+### Steigerung der Motivation {.unnumbered}
+
+>  »Die Präsentation von Interviewausschnitten zeigte einen signifikanten Effekt auf die Wertschätzung des Faches Mathematik.«
+
+```{r}
+#| echo: false
+#| results: asis
+
+library(webexercises)
+cat("Hier wird eine", mcq(c("Deskriptivstatistik", answer = "Inferenzstatistik")), "präsentiert")
+```
+
+### Faktenboxen und Risikowahrnehmung {.unnumbered}
+
+>  »Wenn man annimmt, dass die Faktenboxen die Korrektheit der Risikoeinschätzung steigern, sind die erhobenen Daten mindestens 20fach wahrscheinlicher, als wenn man annimmt, dass die Korrektheit der Risikoeinschätzung gleichbleibt.«
+
+```{r}
+#| echo: false
+#| results: asis
+
+library(webexercises)
+cat("Hier wird eine", mcq(c("Deskriptivstatistik", answer = "Inferenzstatistik")), "präsentiert")
+```
+
+### Active Retrieval {.unnumbered}
+
+> »Das aktive Wiederaufrufen von Infromationen via gefaltetem Tandembogen, war dem wiederholten Lesen des Bogen ergab ein Cohen’s d von $d$ =.2. Dabei ist Cohen’s $d$ als Differenz der zwei Gruppenmittelwerte geteilt durch die gemittelte Standardabweichung definiert.«
+
+### Mathematikkompetenz {.unnumbered}
+
+>  »Die erhobenen Daten sind unter der Annahme gleicher Mathematikkompetenzen von deutschen Schülerinnen und Schülern und dem OECD-Durchschnitt sehr unwahrscheinlich.«
+
+```{r}
+#| echo: false
+#| results: asis
+
+library(webexercises)
+cat("Hier wird eine", mcq(c("Deskriptivstatistik", answer = "Inferenzstatistik")), "präsentiert")
+```
+
+
+### Standzeiten von Untertiteln {.unnumbered}
+
+>  »Nach der Betrachtung von gekürzten Untertiteln mit längeren Standzeiten zeigten 58% der Kinder ein Verständnis über dem durchschnittlichen Verständnis von Sendungen mit konventionellen Untertiteln.«
+
+```{r}
+#| echo: false
+#| results: asis
+
+library(webexercises)
+cat("Hier wird eine", mcq(c(answer = "Deskriptivstatistik", "Inferenzstatistik")), "präsentiert")
+```
+
+## Inferenz- und Deskriptivstatistik 
+
+:::: {.columns}
+
+::: {.column width='40%'}
+**Deskriptivstatistiken** machen Aussagen über vorliegende Datensätze z.B. *»Median aller Noten eines Zeugnisses«*
+:::
+
+::: {.column width='5%'}
+:::
+::: {.column width='55%'}
+**Inferenzstatistiken** machen anhand von Daten Aussagen über (hypothetische) Mechanismen, die diese Daten erzeugen [@eid2013] z.B. *»Befürworten von 100 zufällig ausgewählten Erwachsenen 63 Ziffernnoten in der Grundschule, wie sicher liegt dann eine Zustimmung (> 50%) in der Gesamterwachsenenbevölkerung vor?«*
+:::
+
+::::
+
+![](img/ying yang-4.svg){}
+
+## Schätzung vs. Testung
+
+|                    |  Frequentistische<br>Statistik | Bayesianische<br>Statistik |
+|--------------------|:------------------------------:|:--------------------------:|
+| Parameterschätzung | Konfidenzintervalle            | Posterior Distributions    |
+| Hypothesentest     | p-Werte                        | Bayes Faktoren             |
+
+> Inferenzstatistische *Schätzung* (estimation with quantified uncertainty) trifft anhand von Stichproben Aussagen über Parameter der Grundgesamtheit (Population) aus der die Stichprobe gezogen wurde.  <br><br>
+(Inferenzstatistische) *Hypothesentests* bewerten anhand von Stichprobendaten die Gültigkeit von Hypothesen in der Grundgesamtheit (Population) aus der die Stichprobe gezogen wurde [@kruschke2018].
+
+## Hypothesenarten
+Bayesianische wie frequentistische Hypothesentests können unterschiedliche Arten von Hypothesen zugrunde gelegt werden:
+
+* **Punkthypothesen** setzen Parameter gleich einer reellen Zahl; etwa $H_0\text{: } \delta = 0$ 
+* **Äquivalenzhypothesen** nehmen Parameter in einem reellen Intervall an; etwa  $H_0\text{: } \delta \not\in\ [-.3, .3]$ 
+* **Informative Hypothesen** nehmen eine Ordnungsrelation mehrerer Parameter an; etwa $\mu_{\text{Baseline}} < \mu_{\text{Imaginary Pill}} < \mu_{\text{Blinded Placebo}}$
+
+> **Die *Art* der (falsifiszierten) Hypothese entscheidet wesentlich stärker über den Informationsgehalt eines Hypothesentests als die Entscheidung für das frequentistische oder bayesianische Paradigma** [@hoijtink2012].
+
+Dies ist am leichtest anhand der Nullhypothese nachvollziehbar. Wird etwa die Nullhypothese $H_0\text{: } \delta = 0$ verworfen, wird entsprechend die Alternativhypothese $H_A\text{: } \delta \neq 0$ angenommen. Diese enthält aber quasi keine Information, da sie nur mit einer einzigen Beobachtung (d = 0.000000 ...) verworfen werden kann und im kritischen Rationalismus gilt, dass eine Aussage umso mehr Information enthält, umso leichter sie verworfen werden kann [@doering2016]. 
+
+Äquivalenzhypothesen können sowohl frequentistisch [z.B. TOAST-Prozedur in {{< fa brands r-project >}} und JASP, @lakens2017] wie bayesianisch [z.B. ROPE-Ansatz @kruschke2015] getestet werden. Für das Testen informativer Hypothesen liegen bayesianische Methoden in (u.a.) JASP und {{< fa brands r-project >}} vor [z.B. `{bain}`, @gu2019].
+
