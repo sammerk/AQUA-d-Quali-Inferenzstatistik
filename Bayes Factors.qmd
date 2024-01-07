@@ -78,8 +78,7 @@ ui <- page_fluid(
       title = "BF₁₀:",
       value = textOutput("pvaluetext"),
       showcase = bs_icon("speedometer"),
-      p("Basierend auf der unten vorliegenden Stichprobe"),
-      p("Bzgl. H₀: 𝛅 = 0 & H₁: 𝛅 ≠ 0")
+      p("Basierend auf der unten vorliegenden Stichprobe bzgl. H₀: 𝛅 = 0 & H₁: 𝛅 ≠ 0")
   )),
   card(
     card_title("Stichprobe"),

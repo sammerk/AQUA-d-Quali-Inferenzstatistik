@@ -65,8 +65,7 @@ ui <- page_fluid(
       title = "p-Wert",
       value = textOutput("pvaluetext"),
       showcase = bs_icon("speedometer"),
-      p("Basierend auf der unten vorliegenden Stichprobe"),
-      p("Bzgl. H₀: 𝛅 = 0")
+      p("Basierend auf der unten vorliegenden Stichprobe bzgl. H₀: 𝛅 = 0")
   )),
   card(
     card_title("Stichprobe"),
