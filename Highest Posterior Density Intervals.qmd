@@ -4,7 +4,7 @@ Angenommen ihr interessiert euch für die Stimmung in der Elternschaft pro/kontr
 
 * Wählt einen Prior, der euch gemäß eures Vorwissens plausibel vorkommt und beobachtet, was mit dem HPDI passiert wenn ihr die $n_1$ & $n_2$ zum jeweils 10fachen oder hunderfachen ändert.
 * Wählt einen Flat Prior $\left(\mu = .5, \phi = 2)\right)$ und beobachtet, wie der Modus der Posterioriverteilung je nach $n_1$ & $n_2$ liegt.
-* Wählt $\left(n_1 = 20, n_2 = 20\right)$ und untersucht, welche prior das HDPI stark beeinflussen
+* Wählt $\left(n_1 = 20, n_2 = 20\right)$ und untersucht, welche Priors das HDPI stark beeinflussen
 
 ```{shinylive-r}
 #| standalone: true

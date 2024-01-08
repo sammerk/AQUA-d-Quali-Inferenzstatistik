@@ -14,7 +14,7 @@ book:
   - p-Werte.qmd
   - Bayes Factors.qmd
   - Konfidenzintervalle.qmd
-  - Highest Density Posterior Intervals.qmd
+  - Highest Posterior Density Intervals.qmd
   - Literatur.qmd
   
 bibliography: references.bib
