@@ -40,13 +40,19 @@ cat("*Based on the given Bayes Factor for drug A, drug A demonstrated no effect 
 :::
 
 ## Interpretation
-### Definition nach Kruschke [@kruschke2015]
+### Definition nach Schönbrodt & Wagenmakers [-@schonbrodt2018]
+> In order to gauge the support that the data provide for $\mathcal{H}_0$ versus $\mathcal{H}_1$, the Bayes factor hypothesis test requires that both models make predictions. This, in turn, requires that the expectations under $\mathcal{H}_1$ are made explicit by assigning effect size $\delta$ a prior distribution, for instance a normal distribution centered on zero with a standard deviation of 1, $\mathcal{H}_1: \delta \sim \mathcal{N}(0,1)$. After both models have been specified so that they make predictions, the observed data can be used to assess each models’ predictive adequacy (Morey et al., 2016; Wagenmakers et al., 2006; Wagenmakers et al., 2016). The ratio of predictive adequacies –the Bayes factor– represents the extent to which the data update the relative plausibility of the competing hypotheses, that is:
 
-> Formally, a $p$ value can be defined as follows. For a set of actual data, let $T\left(D_{\text {actual }}\right)$ be a descriptive summary value of the data, such as a $t$ statistic. Suppose that the actual data were sampled according to certain stopping and testing intentions denoted $I$. Then the $p$ value is defined as
-$$
-p \text { value } \equiv p\left(T\left(D_{\text {simulated }}\right) \succeq T\left(D_{\text {actual }}\right) \mid \mu, I\right)
-$$
-where $T\left(D_{\text {simulated }}\right)$ are the descriptive summaries of simulated data sampled from a hypothetical population characterized by parameter value $\mu$ according to the same stopping and testing intentions, $I$, as the actual data. $\succeq$ means »is at least as extreme as, relative to the expected value of $T\left(D_{\text {simulated }}\right)$«. 
+$$\underbrace{\frac{p\left(\mathcal{H}_0 \mid \text { data }\right)}{p\left(\mathcal{H}_1 \mid \text { data }\right)}}_{\begin{array}{c}
+\text { Posterior plausibility } \\
+\text { about hypotheses }
+\end{array}}=\underbrace{\frac{p\left(\mathcal{H}_0\right)}{p\left(\mathcal{H}_1\right)}}_{\begin{array}{c}
+\text { Prior plausibility } \\
+\text { about hypotheses }
+\end{array}} \times \underbrace{\frac{p\left(\text { data } \mid \mathcal{H}_0\right)}{p\left(\text { data } \mid \mathcal{H}_1\right)}}_{\begin{array}{c}
+\text { Bayes factor }= \\
+\text { Predictive updating factor }
+\end{array}}$$ 
 
 ### Visualisierung
 Die folgenden App zieht eine Stichprobe gewählter Größe und (wahrer) Effektstärke und berechnet den $BF_{10}$ für diese Stichprobe bzgl. der $H_0\text{: } \delta = 0$ und $H_1\text{: } \delta \neq 0$.

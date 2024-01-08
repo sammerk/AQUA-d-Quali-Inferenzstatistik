@@ -27,7 +27,7 @@ cat("With a *p* = .05 threshold for significance, the chance of a type I error w
 :::
 
 ## Interpretation
-### Definition nach Kruschke [@kruschke2015]
+### Definition nach Kruschke [-@kruschke2015]
 
 > Formally, a $p$ value can be defined as follows. For a set of actual data, let $T\left(D_{\text {actual }}\right)$ be a descriptive summary value of the data, such as a $t$ statistic. Suppose that the actual data were sampled according to certain stopping and testing intentions denoted $I$. Then the $p$ value is defined as
 $$
