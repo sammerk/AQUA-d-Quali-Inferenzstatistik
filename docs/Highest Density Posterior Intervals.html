@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AQUA-d-Quali: Inferenzstatistik - 5&nbsp; Highest Density Posterior Intervals</title>
+<title>AQUA-d-Quali: Inferenzstatistik - 5&nbsp; Highest Posterior Density Intervals</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -58,6 +78,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="include/webex.css">
 </head>
@@ -71,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Highest Density Posterior Intervals.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Highest Density Posterior Intervals</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Highest Density Posterior Intervals.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Highest Posterior Density Intervals</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -121,7 +170,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Highest Density Posterior Intervals.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Highest Density Posterior Intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Highest Posterior Density Intervals</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -140,7 +189,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#interaktive-visualisierung" id="toc-interaktive-visualisierung" class="nav-link active" data-scroll-target="#interaktive-visualisierung"><span class="header-section-number">5.1</span> Interaktive Visualisierung</a></li>
+  <li><a href="#interaktive-visualisierung" id="toc-interaktive-visualisierung" class="nav-link active" data-scroll-target="#interaktive-visualisierung"><span class="header-section-number">5.1</span> Interaktive Visualisierung</a>
+  <ul class="collapse">
+  <li><a href="#dos" id="toc-dos" class="nav-link" data-scroll-target="#dos"><span class="header-section-number">5.1.1</span> Dos</a></li>
+  <li><a href="#dont" id="toc-dont" class="nav-link" data-scroll-target="#dont"><span class="header-section-number">5.1.2</span> Don’t</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -149,7 +202,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-Highest" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Highest Density Posterior Intervals</span></span></h1>
+<h1 class="title"><span id="sec-Highest" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Highest Posterior Density Intervals</span></span></h1>
 </div>
 
 
@@ -168,6 +221,12 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="interaktive-visualisierung" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="interaktive-visualisierung"><span class="header-section-number">5.1</span> Interaktive Visualisierung</h2>
+<p>Angenommen ihr interessiert euch für die Stimmung in der Elternschaft pro/kontra G9 in Baden-Württemberg. Die folgende App erlaubt euch die Visualisierung eines <span class="math inline">\(\text{Beta}\)</span>-verteilten Priors und berechnet anhand der eingegebenen Häufigkeiten von Zustimmung &amp; Ablehnung die (konjugierte) Posterioriverteilung und dessen 96%-Highest-Posterior-Density-Intervalle.</p>
+<ul>
+<li>Wählt einen Prior, der euch gemäß eures Vorwissens plausibel vorkommt und beobachtet, was mit dem HPDI passiert wenn ihr die <span class="math inline">\(n_1\)</span> &amp; <span class="math inline">\(n_2\)</span> zum jeweils 10fachen oder hunderfachen ändert.</li>
+<li>Wählt einen Flat Prior <span class="math inline">\(\left(\mu = .5, \phi = 2)\right)\)</span> und beobachtet, wie der Modus der Posterioriverteilung je nach <span class="math inline">\(n_1\)</span> &amp; <span class="math inline">\(n_2\)</span> liegt.</li>
+<li>Wählt <span class="math inline">\(\left(n_1 = 20, n_2 = 20\right)\)</span> und untersucht, welche prior das HDPI stark beeinflussen</li>
+</ul>
 <pre class="shinylive-r" data-engine="r"><code>#| standalone: true
 #| viewerHeight: 800
 
@@ -208,14 +267,14 @@ ui &lt;- page_fluid(
          card_body(
            numericInput(
              "successes",
-             "Zustimmung G9",
+             "n₁ = Zustimmung G9",
              min = 0,
              value = 13,
              step = 1
            ),
            numericInput(
              "failures",
-             "Ablehnung G9",
+             "n₂ = Ablehnung G9",
              min = 0,
              value = 8,
              step = 1
@@ -326,8 +385,27 @@ output$plot &lt;- renderPlot({
 }
 
 shinyApp(ui = ui, server = server)</code></pre>
+<section id="dos" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="dos"><span class="header-section-number">5.1.1</span> Dos</h3>
+<ul>
+<li>HDPI sind sehr flexibel verwendbar - sie erlauben sowohl die Bearbeitung von Estimation- als auch von Testingfragestellungen <span class="citation" data-cites="kruschke2018a">(<a href="Literatur.html#ref-kruschke2018a" role="doc-biblioref">Kruschke, 2018</a>)</span> via Region of Practical Equivalence (ROPE) Prozedur</li>
+<li>HDPI machen tatsächlich Aussagen über die Wahrscheinlichkeit der Lage der wahren Parameter (im Gegensatz zu CI)</li>
+</ul>
+</section>
+<section id="dont" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="dont"><span class="header-section-number">5.1.2</span> Don’t</h3>
+<ul>
+<li>Die Mächtigkeit und Flexibilität der HDPI kommt mit den Kosten komplexer Computation</li>
+<li>HDPIs sowie der Bayesianische Ansatz generell werden oft als subjektiv im Sinne von »vom Prior abhängig« kritisiert. Diese Kritik ist wie ihr oben gesehen habt schlicht falsch, HDPI können via Uniformative Prior auch vollständig durch die Daten bestimmt (also unabhängig vom Prior) sein</li>
+</ul>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-kruschke2018a" class="csl-entry" role="listitem">
+Kruschke, J. K. (2018). <a href="https://doi.org/10.1177/2515245918771304">Rejecting or <span>Accepting Parameter Values</span> in <span>Bayesian Estimation</span></a>. <em>Advances in Methods and Practices in Psychological Science</em>, <em>1</em>(2), 270–280.
+</div>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->

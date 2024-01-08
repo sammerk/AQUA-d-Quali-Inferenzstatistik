@@ -1,5 +1,10 @@
-# Highest Density Posterior Intervals {#sec-Highest Density Posterior Intervals}
+# Highest Posterior Density Intervals {#sec-Highest Posterior Density Intervals}
 ## Interaktive Visualisierung
+Angenommen ihr interessiert euch für die Stimmung in der Elternschaft pro/kontra G9 in Baden-Württemberg. Die folgende App erlaubt euch die Visualisierung eines $\text{Beta}$-verteilten Priors und berechnet anhand der eingegebenen Häufigkeiten von Zustimmung & Ablehnung die (konjugierte) Posterioriverteilung und dessen 96%-Highest-Posterior-Density-Intervalle. 
+
+* Wählt einen Prior, der euch gemäß eures Vorwissens plausibel vorkommt und beobachtet, was mit dem HPDI passiert wenn ihr die $n_1$ & $n_2$ zum jeweils 10fachen oder hunderfachen ändert.
+* Wählt einen Flat Prior $\left(\mu = .5, \phi = 2)\right)$ und beobachtet, wie der Modus der Posterioriverteilung je nach $n_1$ & $n_2$ liegt.
+* Wählt $\left(n_1 = 20, n_2 = 20\right)$ und untersucht, welche prior das HDPI stark beeinflussen
 
 ```{shinylive-r}
 #| standalone: true
@@ -42,14 +47,14 @@ ui <- page_fluid(
          card_body(
            numericInput(
              "successes",
-             "Zustimmung G9",
+             "n₁ = Zustimmung G9",
              min = 0,
              value = 13,
              step = 1
            ),
            numericInput(
              "failures",
-             "Ablehnung G9",
+             "n₂ = Ablehnung G9",
              min = 0,
              value = 8,
              step = 1
@@ -162,4 +167,10 @@ output$plot <- renderPlot({
 shinyApp(ui = ui, server = server)
 ```
 
+### Dos
+* HDPI sind sehr flexibel verwendbar - sie erlauben sowohl die Bearbeitung von Estimation- als auch von Testingfragestellungen [@kruschke2018a] via Region of Practical Equivalence (ROPE) Prozedur
+* HDPI machen tatsächlich Aussagen über die Wahrscheinlichkeit der Lage der wahren Parameter (im Gegensatz zu CI)
 
+### Don't
+* Die Mächtigkeit und Flexibilität der HDPI kommt mit den Kosten komplexer Computation
+* HDPIs sowie der Bayesianische Ansatz generell werden oft als subjektiv im Sinne von  »vom Prior abhängig« kritisiert. Diese Kritik ist wie ihr oben gesehen habt schlicht falsch, HDPI können via Uniformative Prior auch vollständig durch die Daten bestimmt (also unabhängig vom Prior) sein

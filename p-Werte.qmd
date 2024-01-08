@@ -36,6 +36,14 @@ $$
 where $T\left(D_{\text {simulated }}\right)$ are the descriptive summaries of simulated data sampled from a hypothetical population characterized by parameter value $\mu$ according to the same stopping and testing intentions, $I$, as the actual data. $\succeq$ means »is at least as extreme as, relative to the expected value of $T\left(D_{\text {simulated }}\right)$«. 
 
 ### Visualisierung
+Die folgenden App zieht eine Stichprobe gewählter Größe und (wahrer) Effektstärke und berechnet den p-Wert für diese Stichprobe bzgl. der $H_0\text{: } \delta = 0$.
+
+* Beobachtet was (durchschnittlich) mit dem p-Wert passiert, wenn ihr 
+   * $\delta$ gleich lasst aber $N$ verändert
+   * $N$ gleich lasst aber $\delta$ verändert
+* Versucht ein falsch-positives Ergebnis ($\alpha$-Fehler) und ein falsch-negatives Ergebnis ($\beta$-Fehler) zu bekommen
+* Stellt $\delta=0$ ein und variiert $N$ beliebig. Wie sind die resultierenden p-Werte verteilt?
+
 ```{shinylive-r}
 #| standalone: true
 #| viewerHeight: 757
@@ -110,6 +118,7 @@ shinyApp(ui = ui, server = server)
 
 
 ```
+
 
 
 ### Don'ts

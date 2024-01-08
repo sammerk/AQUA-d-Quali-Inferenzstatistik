@@ -14,6 +14,6 @@ Heute wollen wir in die Welt der Inferenzstatistik eintauchen. Wie man in der Ka
 * Konfidenzintervalle [{{< fa square-up-right >}} ](Konfidenzintervalle.qmd)
     * Interpretation
     * Do's and don'ts 
-* Highest Density Posterior Intervals [{{< fa square-up-right >}} ](Highest Density Posterior Intervals.qmd)
+* Highest Posterior Density Intervals [{{< fa square-up-right >}} ](Highest Posterior Density Intervals.qmd)
     * Interpretation
     * Do's and don'ts 
