@@ -100,7 +100,7 @@ Bayesianische wie frequentistische Hypothesentests können unterschiedliche Arte
 * **Äquivalenzhypothesen** nehmen Parameter in einem reellen Intervall an; etwa  $H_0\text{: } \delta \not\in\ [-.3, .3]$ 
 * **Informative Hypothesen** nehmen eine Ordnungsrelation mehrerer Parameter an; etwa $\mu_{\text{Baseline}} < \mu_{\text{Imaginary Pill}} < \mu_{\text{Blinded Placebo}}$
 
-> **Die *Art* der (falsifiszierten) Hypothese entscheidet wesentlich stärker über den Informationsgehalt eines Hypothesentests als die Entscheidung für das frequentistische oder bayesianische Paradigma** [@hoijtink2012].
+> **Die *Art* der (falsifizierten) Hypothese entscheidet wesentlich stärker über den Informationsgehalt eines Hypothesentests als die Entscheidung für das frequentistische oder bayesianische Paradigma** [@hoijtink2012].
 
 Dies ist am leichtest anhand der Nullhypothese nachvollziehbar. Wird etwa die Nullhypothese $H_0\text{: } \delta = 0$ verworfen, wird entsprechend die Alternativhypothese $H_A\text{: } \delta \neq 0$ angenommen. Diese enthält aber quasi keine Information, da sie nur mit einer einzigen Beobachtung (d = 0.000000 ...) verworfen werden kann und im kritischen Rationalismus gilt, dass eine Aussage umso mehr Information enthält, umso leichter sie verworfen werden kann [@doering2016]. 
 
