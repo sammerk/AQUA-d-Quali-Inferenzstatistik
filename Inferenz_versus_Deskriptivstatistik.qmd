@@ -29,7 +29,16 @@ cat("Hier wird eine", mcq(c("Deskriptivstatistik", answer = "Inferenzstatistik")
 
 ### Active Retrieval {.unnumbered}
 
-> »Das aktive Wiederaufrufen von Infromationen via gefaltetem Tandembogen, war dem wiederholten Lesen des Bogen ergab ein Cohen’s d von $d$ =.2. Dabei ist Cohen’s $d$ als Differenz der zwei Gruppenmittelwerte geteilt durch die gemittelte Standardabweichung definiert.«
+> »Das aktive Wiederaufrufen von Informationen via gefaltetem Tandembogen, war dem wiederholten Lesen des Bogen ergab ein Cohen’s d von $d$ =.2. Dabei ist Cohen’s $d$ als Differenz der zwei Gruppenmittelwerte geteilt durch die gemittelte Standardabweichung definiert.«
+
+```{r}
+#| echo: false
+#| results: asis
+
+library(webexercises)
+cat("Hier wird eine", mcq(c(answer = "Deskriptivstatistik", "Inferenzstatistik")), "präsentiert")
+```
+
 
 ### Mathematikkompetenz {.unnumbered}
 
